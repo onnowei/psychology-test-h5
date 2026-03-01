@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>育儿心理测试 - 发现孩子的天赋密码</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 首页 -->
+    <div id="home-page" class="page active">
+        <div class="container">
+            <div class="hero">
+                <div class="logo">🧠</div>
+                <h1>育儿心理测试</h1>
+                <p class="subtitle">发现孩子的天赋密码</p>
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-num">50万+</span>
+                        <span class="stat-label">家长已测</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-num">98%</span>
+                        <span class="stat-label">好评率</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-cards">
+                <div class="test-card" onclick="startTest('mbti')">
+                    <div class="card-icon">🎯</div>
+                    <h3>儿童MBTI性格测试</h3>
+                    <p>了解孩子的性格类型，因材施教</p>
+                    <div class="card-meta">
+                        <span class="question-count">20题</span>
+                        <span class="time">5分钟</span>
+                    </div>
+                    <button class="btn-primary">开始测试</button>
+                </div>
+                
+                <div class="test-card" onclick="startTest('talent')">
+                    <div class="card-icon">⭐</div>
+                    <h3>天赋潜能测评</h3>
+                    <p>发现孩子的隐藏天赋和优势领域</p>
+                    <div class="card-meta">
+                        <span class="question-count">15题</span>
+                        <span class="time">4分钟</span>
+                    </div>
+                    <button class="btn-primary">开始测试</button>
+                </div>
+                
+                <div class="test-card" onclick="startTest('parenting')">
+                    <div class="card-icon">💝</div>
+                    <h3> parenting风格测试</h3>
+                    <p>了解你的育儿风格，优化亲子关系</p>
+                    <div class="card-meta">
+                        <span class="question-count">12题</span>
+                        <span class="time">3分钟</span>
+                    </div>
+                    <button class="btn-primary">开始测试</button>
+                </div>
+            </div>
+            
+            <div class="features">
+                <div class="feature">
+                    <span class="feature-icon">🔬</span>
+                    <span>科学依据</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📊</span>
+                    <span>专业报告</span>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🔒</span>
+                    <span>隐私保护</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 测试页面 -->
+    <div id="quiz-page" class="page">
+        <div class="container">
+            <div class="quiz-header">
+                <button class="back-btn" onclick="goHome()">←</button>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+                <span class="progress-text" id="progress-text">1/20</span>
+            </div>
+            
+            <div class="question-container" id="question-container">
+                <!-- 问题内容将由JS动态生成 -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- 结果页面 -->
+    <div id="result-page" class="page">
+        <div class="container">
+            <div class="result-hero">
+                <div class="result-icon" id="result-icon">🎯</div>
+                <h2 id="result-title">测试结果</h2>
+                <p id="result-subtitle">您的孩子是...</p>
+            </div>
+            
+            <div class="result-card">
+                <div class="personality-type" id="personality-type">ENFP</div>
+                <div class="personality-name" id="personality-name">竞选者</div>
+                <div class="personality-desc" id="personality-desc">
+                    热情、富有创造力、善于社交，总是充满新想法
+                </div>
+                
+                <div class="traits-section">
+                    <h4>性格特征</h4>
+                    <div class="traits" id="traits">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="suggestions-section">
+                    <h4>育儿建议</h4>
+                    <div class="suggestions" id="suggestions">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="share-section">
+                <p>分享给更多家长</p>
+                <div class="share-buttons">
+                    <button class="share-btn wechat" onclick="shareToWechat()">微信</button>
+                    <button class="share-btn moment" onclick="shareToMoment()">朋友圈</button>
+                    <button class="share-btn poster" onclick="generatePoster()">生成海报</button>
+                </div>
+            </div>
+            
+            <div class="cta-section">
+                <h3>获取完整版专业报告</h3>
+                <ul class="report-features">
+                    <li>✓ 16页详细分析报告</li>
+                    <li>✓ 个性化教育方案</li>
+                    <li>✓ 亲子沟通技巧</li>
+                    <li>✓ 成长发展建议</li>
+                </ul>
+                <div class="price">
+                    <span class="original">¥29.9</span>
+                    <span class="current">¥9.9</span>
+                    <span class="tag">限时特惠</span>
+                </div>
+                <button class="btn-pay" onclick="unlockReport()">解锁完整报告</button>
+                <p class="tip">已有 12,580 位家长购买</p>
+            </div>
+            
+            <button class="btn-secondary" onclick="restartTest()">再测一次</button>
+        </div>
+    </div>
+    
+    <!-- 支付弹窗 -->
+    <div id="pay-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3>解锁完整报告</h3>
+            <div class="pay-amount">¥9.90</div>
+            <div class="qr-code">
+                <div class="qr-placeholder">
+                    <p>微信支付二维码</p>
+                    <p class="qr-tip">请使用微信扫一扫</p>
+                </div>
+            </div>
+            <p class="pay-tip">支付完成后自动解锁</p>
+        </div>
+    </div>
+
+    <!-- 海报弹窗 -->
+    <div id="poster-modal" class="modal">
+        <div class="modal-content poster-modal-content">
+            <span class="close-btn" onclick="closePosterModal()">&times;</span>
+            <h3>长按保存海报</h3>
+            <div id="poster-container" class="poster-container">
+                <!-- 海报内容将由JS生成 -->
+            </div>
+            <p class="poster-tip">长按图片保存到相册，分享给好友</p>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
