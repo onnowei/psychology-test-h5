@@ -1,0 +1,22 @@
+{
+  "name": "parenting-psych-test-frontend",
+  "version": "1.0.0",
+  "description": "育儿心理测试H5前端",
+  "main": "index.html",
+  "scripts": {
+    "serve": "npx serve .",
+    "build": "echo '静态页面无需构建'"
+  },
+  "keywords": [
+    "parenting",
+    "psychology",
+    "test",
+    "mbti",
+    "h5"
+  ],
+  "author": "AI Product Assistant",
+  "license": "MIT",
+  "dependencies": {
+    "html2canvas": "^1.4.1"
+  }
+}
