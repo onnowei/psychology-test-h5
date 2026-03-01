@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理员后台 - 育儿心理测试</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: #667eea;
+        }
+        
+        .stat-change {
+            font-size: 12px;
+            color: #22c55e;
+            margin-top: 4px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .chart-placeholder {
+            height: 200px;
+            background: #f8fafc;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+        }
+        
+        .refresh-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            float: right;
+            margin-top: -50px;
+        }
+        
+        .refresh-btn:hover {
+            background: #5a67d8;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table th {
+            font-weight: 600;
+            color: #666;
+            font-size: 13px;
+        }
+        
+        .data-table td {
+            font-size: 14px;
+        }
+        
+        .badge {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .badge-success {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .badge-pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .refresh-btn {
+                float: none;
+                margin-top: 0;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 管理员后台</h1>
+        <p>育儿心理测试数据统计中心</p>
+    </div>
+    
+    <div class="container">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">总测试人数</div>
+                <div class="stat-value" id="total-tests">0</div>
+                <div class="stat-change">↑ 较昨日 +0%</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">今日测试</div>
+                <div class="stat-value" id="today-tests">0</div>
+                <div class="stat-change">实时更新</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">付费转化</div>
+                <div class="stat-value" id="conversion-rate">0%</div>
+                <div class="stat-change">总收入 ¥0</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-label">付费人数</div>
+                <div class="stat-value" id="total-payments">0</div>
+                <div class="stat-change">客单价 ¥9.9</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <button class="refresh-btn" onclick="loadStats()">🔄 刷新数据</button>
+            <h2>📈 数据概览</h2>
+            <div class="chart-placeholder">
+                图表功能开发中，敬请期待...
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>📝 最近测试记录</h2>
+            <div id="recent-tests">
+                <div class="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <p>暂无测试记录</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>💰 最近支付记录</h2>
+            <div id="recent-payments">
+                <div class="empty-state">
+                    <div class="empty-state-icon">💳</div>
+                    <p>暂无支付记录</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 加载统计数据
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                
+                if (data.success) {
+                    document.getElementById('total-tests').textContent = data.data.totalTests;
+                    document.getElementById('today-tests').textContent = data.data.todayTests;
+                    document.getElementById('total-payments').textContent = data.data.totalPayments;
+                    
+                    // 计算转化率
+                    const conversionRate = data.data.totalTests > 0 
+                        ? ((data.data.totalPayments / data.data.totalTests) * 100).toFixed(1)
+                        : 0;
+                    document.getElementById('conversion-rate').textContent = conversionRate + '%';
+                }
+            } catch (error) {
+                console.error('加载统计数据失败:', error);
+            }
+        }
+        
+        // 页面加载时获取数据
+        window.onload = function() {
+            loadStats();
+            // 每30秒自动刷新
+            setInterval(loadStats, 30000);
+        };
+    </script>
+</body>
+</html>
